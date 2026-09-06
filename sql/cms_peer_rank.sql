@@ -1,0 +1,29 @@
+-- Layer A. Rank hospitals inside a peer group on a selected readmission measure.
+-- Window functions. No UCI tables.
+-- Swap measure_id and peer columns once the facility mart exists.
+
+-- WITH peer AS (
+--   SELECT
+--     facility_id,
+--     hospital_type,
+--     hospital_ownership,
+--     state,
+--     measure_id,
+--     score,
+--     compared_to_national,
+--     denominator
+--   FROM cms_unplanned_visits
+--   WHERE measure_id = 'READM_30_HF'
+--     AND score IS NOT NULL
+-- )
+-- SELECT
+--   facility_id,
+--   hospital_type,
+--   hospital_ownership,
+--   score,
+--   compared_to_national,
+--   RANK() OVER (
+--     PARTITION BY hospital_type, hospital_ownership
+--     ORDER BY score ASC
+--   ) AS rank_in_peer
+-- FROM peer;

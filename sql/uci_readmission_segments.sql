@@ -1,0 +1,14 @@
+-- Layer B. 30-day readmission rate by age band, admission type,
+-- diagnosis group, and prior-utilization band.
+-- No CMS tables.
+
+-- SELECT
+--   age_band,
+--   admission_type,
+--   util_band,
+--   SUM(readmit_30) AS n_readmit,
+--   COUNT(*) AS n_encounters,
+--   1.0 * SUM(readmit_30) / COUNT(*) AS readmit_30_rate
+-- FROM uci_encounter
+-- GROUP BY age_band, admission_type, util_band
+-- HAVING COUNT(*) >= 50;

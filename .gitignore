@@ -1,0 +1,27 @@
+# Local env
+.venv/
+venv/
+env/
+.env
+
+# Python / Jupyter / OS
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / agent notes
+.cursor/
+
+# Raw downloads (rebuildable; URLs live in docs/source-manifest.md)
+data/raw/cms/*
+!data/raw/cms/.gitkeep
+data/raw/uci/*
+!data/raw/uci/.gitkeep
+
+# SQLite rebuilds of the processed CSVs
+database/*.sqlite
+database/*.db

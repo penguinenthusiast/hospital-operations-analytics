@@ -1,0 +1,9 @@
+pandas
+jupyter
+ipykernel
+matplotlib
+seaborn
+scipy
+statsmodels
+scikit-learn
+openpyxl

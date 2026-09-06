@@ -1,0 +1,9 @@
+file,path,layer,bytes,mtime_local,n_rows,n_cols,grain,key,n_unique_key,sha256
+Hospital_General_Information.csv,data/raw/cms/Hospital_General_Information.csv,CMS,1450767,2026-08-29T02:48:23,5419,38,facility,Facility ID,5419,f874f09fef895a1ccf5bb7392dcbb2be05c9860339261b093fe00f0c1b013480
+Unplanned_Hospital_Visits-Hospital.csv,data/raw/cms/Unplanned_Hospital_Visits-Hospital.csv,CMS,19048784,2026-08-29T02:48:36,67060,20,facility x measure,Facility ID,4790,a3e64029ea6daea1f7de163e5b5054b918d0c8be986fccfc47c7a8d5b29a6d1d
+HCAHPS-Hospital.csv,data/raw/cms/HCAHPS-Hospital.csv,CMS,105461119,2026-08-29T02:48:43,325720,22,facility x survey item,Facility ID,4790,b70e598f29552df302e30ed649d178abd1b3d3c868ae97cf8e55453dd33898fc
+Timely_and_Effective_Care-Hospital.csv,data/raw/cms/Timely_and_Effective_Care-Hospital.csv,CMS,34150899,2026-08-29T02:48:50,138084,16,facility x measure,Facility ID,4658,1e5a1ca803c2b09468fe3ae3fe60fef3e910f5f5300630a24791c88a1abff516
+Footnote_Crosswalk.csv,data/raw/cms/Footnote_Crosswalk.csv,CMS,3456,2026-09-05T05:02:18,32,2,footnote code,Footnote,32,5214e1468fb04c5cdeac8920f2c446cccaa65e2f6f929424cd228042a52d963e
+Measure_Dates.csv,data/raw/cms/Measure_Dates.csv,CMS,18993,2026-09-05T05:02:48,171,6,measure,Measure ID,171,8c0d88c6ada91feff88a90f797ab22fa8bedb306fa91033b1c9b865999c908c4
+diabetic_data.csv,data/raw/uci/diabetic_data.csv,UCI,19159383,2023-07-12T14:38:42,101766,50,encounter,encounter_id,101766,0689e7ec031237dc63031b938805c48377748761a3b26acab621567afa24df97
+IDS_mapping.csv,data/raw/uci/IDS_mapping.csv,UCI,2547,2023-07-12T14:38:58,67,2,stacked ID lookups (admission / discharge / source),, ,f1bb82b471cb34649352597572c9b1fb00bd27f77b9f5a22a03dc3eb1039749e

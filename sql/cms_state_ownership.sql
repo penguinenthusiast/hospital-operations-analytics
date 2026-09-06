@@ -1,0 +1,11 @@
+-- Layer A. State / ownership distributions of ratings and readmission performance.
+-- Keep numerator and denominator. Do not average Not Available as zero.
+
+-- SELECT
+--   state,
+--   hospital_ownership,
+--   COUNT(*) AS n_hospitals,
+--   SUM(CASE WHEN overall_rating IS NOT NULL THEN 1 ELSE 0 END) AS n_with_star,
+--   AVG(overall_rating) AS mean_star_among_rated
+-- FROM cms_facility
+-- GROUP BY state, hospital_ownership;

@@ -1,0 +1,20 @@
+-- Layer B. High vs low prior-utilization groups via CTEs.
+
+-- WITH bands AS (
+--   SELECT
+--     encounter_id,
+--     readmit_30,
+--     CASE
+--       WHEN number_inpatient + number_emergency >= 2 THEN 'high'
+--       WHEN number_inpatient + number_emergency = 0 THEN 'low'
+--       ELSE 'mid'
+--     END AS util_group
+--   FROM uci_encounter
+-- )
+-- SELECT
+--   util_group,
+--   SUM(readmit_30) AS n_readmit,
+--   COUNT(*) AS n_encounters,
+--   1.0 * SUM(readmit_30) / COUNT(*) AS readmit_30_rate
+-- FROM bands
+-- GROUP BY util_group;
