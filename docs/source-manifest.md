@@ -50,4 +50,4 @@ License: CC BY 4.0. Cite Strack et al. 2014 when you write the README findings.
 
 ## Provenance rule
 
-Notebook `01` records path, `mtime`, size, row count, key, and SHA-256 in `data/reference/`. Raw files are not edited. The provenance pass is done. CMS and UCI cleans are done. **Current step:** notebook `04`, two SQLite files.
+Notebook `01` records path, `mtime`, size, row count, key, and SHA-256 in `data/reference/`. Raw files are not edited. The provenance pass is done. CMS and UCI cleans, SQLite, SQL, CMS peer charts, and UCI segment charts are done. **Current step:** notebook `07`, triage model.

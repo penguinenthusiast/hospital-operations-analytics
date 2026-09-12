@@ -1,14 +1,16 @@
--- Layer B. 30-day readmission rate by age band, admission type,
--- diagnosis group, and prior-utilization band.
+-- Layer B. Crude 30-day return rate by age, admission type, and prior-acute band.
+-- Eligible stays only. Cells with fewer than 50 stays are dropped.
 -- No CMS tables.
 
--- SELECT
---   age_band,
---   admission_type,
---   util_band,
---   SUM(readmit_30) AS n_readmit,
---   COUNT(*) AS n_encounters,
---   1.0 * SUM(readmit_30) / COUNT(*) AS readmit_30_rate
--- FROM uci_encounter
--- GROUP BY age_band, admission_type, util_band
--- HAVING COUNT(*) >= 50;
+SELECT
+  age,
+  admission_type,
+  prior_acute_band,
+  SUM(readmit_30) AS n_readmit,
+  COUNT(*) AS n_encounters,
+  1.0 * SUM(readmit_30) / COUNT(*) AS readmit_30_rate
+FROM uci_encounter_mart
+WHERE eligible_for_readmit = 1
+GROUP BY age, admission_type, prior_acute_band
+HAVING COUNT(*) >= 50
+ORDER BY readmit_30_rate DESC, n_encounters DESC;

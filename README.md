@@ -17,7 +17,7 @@ Official CMS files say `Facility ID`. That is the CCN. UCI has no hospital ident
 2. [`NOTES.md`](NOTES.md) — glossary, phase diary, file map.
 3. [`PROJECT_PLAN.md`](PROJECT_PLAN.md) — locked Strong scope (why the layers stay apart, why Phase 7–9 are out).
 4. [`docs/kpi-dictionary.md`](docs/kpi-dictionary.md) — what each number is allowed to mean.
-5. Notebooks, in order. `01` is provenance. `02` is the CMS clean. `03` is the UCI clean. `04`–`07` are still stubs.
+5. Notebooks, in order. `01` is provenance. `02` is the CMS clean. `03` is the UCI clean. `04` is SQLite plus the four SQL questions. `05` is CMS peer-group charts. `06` is UCI segment charts. `07` is still a stub.
 
 | Notebook | Phase | What it does |
 |---|---|---|
@@ -54,6 +54,36 @@ Processed CMS files are in `data/processed/` (`cms_facility_mart.csv` is the wid
 **2026-09-05. Phase 2 UCI clean (notebook `03`).** Same inspect / clean / check / save pass on the stay file. I turned `?` into missing, attached admission/discharge/source labels, flagged 30-day return, and marked stays we should not score (death, hospice, still in the hospital, invalid gender). Prior visits are grouped 0 / 1 / 2+. The main diagnosis is grouped into ICD-9 chapters. Weight is dropped (97% missing).
 
 101,766 stays, 71,518 people, 11,357 thirty-day returns. 99,337 stays are eligible for a 30-day rate. Saved `data/processed/uci_encounter_mart.csv`. Next is notebook `04` (SQL).
+
+**2026-09-06. Phase 2 SQL (notebook `04`).** I loaded the processed marts into two SQLite files (`database/cms.sqlite`, `database/uci.sqlite`) and ran the four queries in `sql/`. I did not attach the files or join the layers.
+
+CMS heart-failure readmission (`READM_30_HF`): 3,253 published scores. CMS labels 38 worse than national, 21 better, 3,194 no different. I ranked the published scores inside type × ownership × region. Rank is computed on every scored hospital first; filtering to “worse” before the window made a peer of 317 look like a peer of 6. Several CMS-worse hospitals are also last in a large peer (Bronson Methodist, MI, 28.4, 357 of 357 Midwest voluntary non-profit private acute-care; St. Barnabas, NY, 27.6, 317 of 317 Northeast). A 1-of-1 rank is not a peer finding.
+
+Stars: 3,174 of 5,419 hospitals have a rating. Proprietary hospitals publish fewer stars and a lower mean among the rated (2.79) than voluntary non-profit private (3.31). Puerto Rico has 7 stars on 59 hospitals. Do not average a missing star as zero.
+
+UCI, eligible stays only: 11,312 / 99,337 = **11.4%** returned in 30 days. Prior acute visits (inpatient + ED) step from **8.4%** (0) to **12.4%** (1) to **20.4%** (2+). Emergency admissions 11.8%, elective 10.5%. Age is not a straight climb; [20-30) is 14.3% on 1,649 stays. This is not a CMS HF score.
+
+Queries: [`sql/cms_peer_rank.sql`](sql/cms_peer_rank.sql), [`sql/cms_state_ownership.sql`](sql/cms_state_ownership.sql), [`sql/uci_readmission_segments.sql`](sql/uci_readmission_segments.sql), [`sql/uci_utilization_cte.sql`](sql/uci_utilization_cte.sql).
+
+**2026-09-07. Phase 3 CMS benchmarking (notebook `05`).** Charts only, from `cms_facility_mart.csv`. No UCI. Peer group is still type × ownership × region. I counted unpublished hospitals before any average.
+
+28 peer groups have 20 or more published HF scores (2,968 of 3,253 scored hospitals). The widest of those is Midwest voluntary non-profit private acute-care (17.7 to 28.4). Bronson Methodist (MI) is last of 357 and CMS-worse. St. Barnabas (NY) is last of 317 in the Northeast peer. The review list I would use is CMS-worse **and** peer n ≥ 20: 29 hospitals. A 1-of-1 rank stays off that list.
+
+HCAHPS overall linear vs HF score: 2,960 hospitals, Pearson r **-0.17**, Spearman **-0.15**. Better experience sits with a slightly lower HF score. The link is weak. It is not a cause. Overall star vs HF is -0.28 (n=3,045).
+
+State star means use only hospitals with a published star, and only states with 20+ ratings. Puerto Rico (7 stars on 59 hospitals) is not on that chart.
+
+Figures: [`figures/cms_publication_by_region.png`](figures/cms_publication_by_region.png), [`figures/cms_hf_score_by_large_peer.png`](figures/cms_hf_score_by_large_peer.png), [`figures/cms_hf_vs_hcahps.png`](figures/cms_hf_vs_hcahps.png), [`figures/cms_star_by_state.png`](figures/cms_star_by_state.png).
+
+**2026-09-07. Phase 4 UCI EDA (notebook `06`).** Charts from `uci_encounter_mart.csv` only. Eligible stays only. Every rate has an N. No CMS.
+
+11,312 / 99,337 = **11.4%** returned in 30 days (about 11.2% to 11.6%). Prior acute visits (inpatient + ED) step from **8.4%** (0) to **12.4%** (1) to **20.4%** (2+). That is the main operational cut. Outpatient bands move less (10.9% / 14.2% / 13.6%).
+
+Age is not a straight climb: [20-30) is 14.3%; [50-60) is 9.8%; [70-80) is 12.1%. Emergency 11.8%, elective 10.5%. Home discharge 9.3%; SNF 14.7%; rehab 27.7% on 1,992 stays. Median LOS is 4 days either way; the return rate rises from 8.4% at 1 day to about 14–15% around days 8–10. A1C is missing on most stays. Med-change and diabetes-med gaps are small associations.
+
+I left a candidate feature list at the bottom of notebook `06` for the triage model. This is not a CMS HF score.
+
+Figures: [`figures/uci_rate_by_prior_acute.png`](figures/uci_rate_by_prior_acute.png), [`figures/uci_rate_by_age.png`](figures/uci_rate_by_age.png), [`figures/uci_rate_by_admission.png`](figures/uci_rate_by_admission.png), [`figures/uci_rate_by_los.png`](figures/uci_rate_by_los.png). Next is notebook `07` (triage model).
 
 ---
 

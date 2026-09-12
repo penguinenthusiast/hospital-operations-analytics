@@ -105,4 +105,8 @@ A "Hospital Operations Intelligence Platform." A blended warehouse. A national s
 
 ## Current status
 
-CMS and UCI cleans are done (2026-09-05), plus a QA pass on duplicates, missingness, and label spelling. **Current step:** notebook `04` — load the processed marts into `database/cms.sqlite` and `database/uci.sqlite`, then run the queries in `sql/`. No join between the two databases. Raw files stay out of git.
+Cleans, SQLite, SQL, and CMS peer charts are done. Notebook `06` (2026-09-07) charted eligible UCI stays. No CMS.
+
+Working UCI chart results: eligible `<30` is 11.4% (11,312 / 99,337). Prior acute 0 / 1 / 2+ is 8.4% / 12.4% / 20.4%. Age is not monotonic. Home 9.3%, SNF 14.7%, rehab 27.7% (n=1,992). LOS is context (median 4 days). Candidate features are listed in notebook `06`.
+
+**Current step:** notebook `07`, triage model. Raw files and SQLite rebuilds stay out of git.
